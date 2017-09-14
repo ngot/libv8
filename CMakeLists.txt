@@ -16,12 +16,6 @@ add_definitions(
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
 if(${BUILD_TYPE} STREQUAL "debug")
-	set(flags "${flags} -g -O0 ${BUILD_OPTION} -Wall")
-	set(link_flags "${link_flags} ${BUILD_OPTION}")
-	add_definitions(-DDEBUG=1)
-endif()
-
-if(${BUILD_TYPE} STREQUAL "debug")
 	add_definitions(
 		-DVERIFY_HEAP=1
 		-DOBJECT_PRINT=1
@@ -29,6 +23,7 @@ if(${BUILD_TYPE} STREQUAL "debug")
 		-DV8_ENABLE_CHECKS=1
 		-DTRACE_MAPS=1
 		-DENABLE_SLOW_DCHECKS=1
+		-DDEBUG=1
 	)
 endif()
 
