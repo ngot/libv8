@@ -1,0 +1,31 @@
+dist: trusty
+language: cpp
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - ARCH=amd64
+install:
+  - curl -s http://fibjs.org/download/installer.sh|sh
+  - ./tools/deps.sh
+script:
+  - echo "${ARCH}"
+  - ./tools/gn-v8.js
+  - echo "build release"
+  - ./build.sh release
+  - echo "build debug"
+  - ./build.sh debug
+  - mv bin/release/libv8.a bin/libv8-release.a
+  - mv bin/debug/libv8.a bin/libv8-debug.a
+deploy:
+  - provider: releases
+    api_key:
+      secure: qEmaNM6a3Ilp/HXMad5b2BuRnH3QDvcoBmvZRo96OX57yMGc8UCHvDcnUGuOYgC+YJuNkhy45hbH7OUvN6XkL5arKJt42FKQN3NeA99Dcl/8xd+RmPYmc0B+AwoTus0as3bv5Py1NHeKXDwPlTDvaKs0izKkaRWpFAE/i7UvTqzzPcAADiSGbJEBh4HWacrMYcF5qfmZrkc8hwqCjOxuj6I5OsnlrIVBllJzwaxmeoYr/9oW3mB4vr5ZnEDJzhzQJ/xemOx2YibdOICq++fEKkbpOWJQCtt2felD9w3rbc53P+ouN9XNuXd+16EE9TakVLLFnGjFNUV572ktmgHzc4dLb4UDfqOUq0q+sWiOXCBWKxJuB2cXcsG2zVyur0v5a2rzLTxFof1ZycwMnf2hXww7hoTsPnPJgg+1MOKb0tBesWTZIHpcsioLDuGjVfl14K3vzMO9izjZwrxkt4a3JcH4CO7ABDOMNMAXHqTBWe+0zNlMPUQnxqb/x8L7Ape2dQqyI6ldhgN6JGNTjUdH1Og5eDg3U40G3Yf/Osm2/u9oWknmuTj+fQKDzfIoE1bUFqhd7EJpBJz6myqfeDimg8d08oOo7eaIxLPVK9e2MUmJo070d9JEl+ofimj9AHMBIs2+s0KESsTXjgDTE2WKbcP9F7SnUScLpl2PC4yj2vk=
+    file_glob: true
+    file: bin/*
+    skip_cleanup: true
+    overwrite: true
+    on:
+      tags: true
+      repo: ngot/libv8

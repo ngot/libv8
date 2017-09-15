@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ev
+
 V8_VERSION="6.3.150"
 
 mkdir v8-src
@@ -23,3 +25,5 @@ git checkout -b ${V8_VERSION}
 
 # build v8
 ../depot_tools/ninja -C out.gn/x64.release
+
+exit 0;
