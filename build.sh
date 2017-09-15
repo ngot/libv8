@@ -1,5 +1,15 @@
 #!/bin/bash
 
+BUILD_TYPE="release"
+
+for i in "$@"
+do
+	case $i in
+		release|debug) BUILD_TYPE=$i
+			;;
+	esac
+done
+
 rm -rf out
 rm -rf bin
 
@@ -8,8 +18,9 @@ mkdir bin
 
 cd out
 
-cmake -DBUILD_TYPE=release -DBUILD_OPTION="" ../ > CMake.log
-# cmake -DBUILD_TYPE=debug -DBUILD_OPTION="" ../ > CMake.log
+echo ${BUILD_TYPE}
+
+cmake -DBUILD_TYPE=${BUILD_TYPE} -DBUILD_OPTION="" ../ > CMake.log
 make -j4
 if [ $? != 0 ]; then
 	exit 1

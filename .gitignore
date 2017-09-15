@@ -2,3 +2,4 @@ node_modules
 bin
 out
 v8
+v8-src
