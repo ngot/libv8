@@ -10,11 +10,13 @@ do
 	esac
 done
 
-rm -rf out
-rm -rf bin
+if [ ! -e bin ]; then
+	mkdir bin
+fi
 
-mkdir out
-mkdir bin
+if [ ! -e out ]; then
+	mkdir out
+fi
 
 cd out
 
