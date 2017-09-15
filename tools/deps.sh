@@ -1,5 +1,7 @@
 #!/bin/bash
 
+V8_VERSION="6.3.150"
+
 mkdir v8-src
 cd v8-src
 
@@ -10,6 +12,8 @@ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 ./depot_tools/fetch v8
 
 cd v8
+
+git checkout -b ${V8_VERSION}
 
 # sync update
 ../depot_tools/gclient sync
